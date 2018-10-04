@@ -1,0 +1,43 @@
+- hosts: local
+  connection: local
+  tasks: 
+    - name: add sign keys
+      apt_key:
+        url: "{{ item }}"
+        state: present
+      loop:
+        - https://download.docker.com/linux/ubuntu/gpg
+        - https://dl-ssl.google.com/linux/linux_signing_key.pub
+        - https://packages.microsoft.com/keys/microsoft.asc
+    - name: add apt repo
+      apt_repository:
+        repo: "{{ item.name  }}" 
+        state: present
+        filename: "{{ item.filename }}"
+        update_cache: false
+      loop:
+        - { name: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable', filename: 'google-chrome' }
+        - { name: 'deb http://dl.google.com/linux/chrome/deb/ stable main', filename: 'docker' }
+        - { name: 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main', filename: 'vscode' }
+    - name: install packages
+      apt:
+        pkg: "{{ item }}"
+        state: present
+        update_cache: true 
+      loop:
+        - git
+        - google-chrome-stable
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+        - docker-ce
+        - apt-transport-https
+        - code
+    - name: docker post insallations
+      shell: groupadd docker || usermod -aG docker $USER
+    - name: download docker-compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.22.0/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 555   
