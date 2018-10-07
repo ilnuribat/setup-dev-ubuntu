@@ -21,7 +21,6 @@
         - { name: 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main', filename: 'vscode' }
     - name: prepare to install nodejs
       shell: curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-      warn: false
     - name: install packages
       apt:
         pkg: "{{ item }}"
@@ -47,3 +46,9 @@
         url: https://github.com/docker/compose/releases/download/1.22.0/docker-compose-Linux-x86_64
         dest: /usr/local/bin/docker-compose
         mode: 555
+    - name: post installation for docker
+      group:
+        name: docker
+        state: present
+    - name: add user to docker group
+      shell: "usermod -aG docker {{ ansible_env.SUDO_USER }}"
