@@ -19,6 +19,9 @@
         - { name: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable', filename: 'google-chrome' }
         - { name: 'deb http://dl.google.com/linux/chrome/deb/ stable main', filename: 'docker' }
         - { name: 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main', filename: 'vscode' }
+    - name: prepare to install nodejs
+      shell: curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+      warn: false
     - name: install packages
       apt:
         pkg: "{{ item }}"
@@ -34,10 +37,13 @@
         - docker-ce
         - apt-transport-https
         - code
+        - gnome-tweak-tool
+        - nodejs
+        - build-essential
     - name: docker post insallations
       shell: groupadd docker || usermod -aG docker $USER
     - name: download docker-compose
       get_url:
         url: https://github.com/docker/compose/releases/download/1.22.0/docker-compose-Linux-x86_64
         dest: /usr/local/bin/docker-compose
-        mode: 555   
+        mode: 555
