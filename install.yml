@@ -16,8 +16,8 @@
         filename: "{{ item.filename }}"
         update_cache: false
       loop:
-        - { name: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable', filename: 'google-chrome' }
-        - { name: 'deb http://dl.google.com/linux/chrome/deb/ stable main', filename: 'docker' }
+        - { name: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable', filename: 'docker' }
+        - { name: 'deb http://dl.google.com/linux/chrome/deb/ stable main', filename: 'google-chrome' }
         - { name: 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main', filename: 'vscode' }
     - name: prepare to install nodejs
       shell: curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
