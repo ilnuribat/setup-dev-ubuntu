@@ -39,6 +39,12 @@
         - gnome-tweak-tool
         - nodejs
         - build-essential
+        - vim
+        - cmake
+        - python-dev
+        - terminator
+        - libgl1-mesa-dev #qt
+        - libinput-tools #fusuma
     - name: docker post insallations
       shell: groupadd docker || usermod -aG docker $USER
     - name: download docker-compose
