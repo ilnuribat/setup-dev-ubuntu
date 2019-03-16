@@ -45,6 +45,7 @@
         - terminator
         - libgl1-mesa-dev #qt
         - libinput-tools #fusuma
+        - ruby
     - name: docker post insallations
       shell: groupadd docker || usermod -aG docker $USER
     - name: download docker-compose
@@ -58,3 +59,6 @@
         state: present
     - name: add user to docker group
       shell: "usermod -aG docker {{ ansible_env.SUDO_USER }}"
+    - name: install fusuma
+      gem:
+        name: fusuma
