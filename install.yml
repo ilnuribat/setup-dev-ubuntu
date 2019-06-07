@@ -50,7 +50,7 @@
       shell: groupadd docker || usermod -aG docker $USER
     - name: download docker-compose
       get_url:
-        url: https://github.com/docker/compose/releases/download/1.22.0/docker-compose-Linux-x86_64
+        url: https://github.com/docker/compose/releases/download/1.24.0/docker-compose-Linux-x86_64
         dest: /usr/local/bin/docker-compose
         mode: 555
     - name: post installation for docker
